@@ -1,0 +1,18 @@
+services:
+  bybit-usd:
+    image: "${GHCR_IMAGE:?请在 .env 中设置 GHCR_IMAGE}:latest"
+    pull_policy: always
+    restart: unless-stopped
+    init: true
+    environment:
+      API_KEY: "${API_KEY:?请在 .env 中设置 API_KEY}"
+      API_SECRET: "${API_SECRET:?请在 .env 中设置 API_SECRET}"
+      BOT_TOKEN: "${BOT_TOKEN:?请在 .env 中设置 BOT_TOKEN}"
+      DATA_DIR: /data
+    volumes:
+      - ./data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
